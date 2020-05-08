@@ -1,95 +1,78 @@
-<h3>NMIG - the database migration tool.</h3>
+# MySQL to PostgreSQL converter
 
-<h3>WHAT IS IT ALL ABOUT?</h3>
-<p>NMIG is an app, intended to make a process of migration
-from MySQL to PostgreSQL as easy and smooth as possible.</p>
+This is a minimal working prototype for converting MySQL to PostgreSQL DB based on the [NMIG](https://github.com/AnatolyUss/nmig) library, which should in principle support *precise migration of the database structure*.
 
-<h3>KEY FEATURES</h3>
-<ul>
-<li> Precise migration of the database structure - NMIG converts
-   MySQL data types to corresponding PostgreSQL data types, creates constraints,
-   indexes, primary and foreign keys exactly as they were before migration.</li>
+## Table of Contents
 
-<li>Ability to rename tables and columns during migration.</li>
-<li>Ability to recover migration process if disaster took place without restarting from the beginning.</li>
-<li>Ability to migrate big databases fast - in order to migrate data NMIG utilizes PostgreSQL COPY protocol.</li>
-<li>Ease of monitoring - NMIG will provide detailed output about every step, it takes during the execution.</li>
-<li>
- Ease of configuration - all the parameters required for migration should be put in one single JSON document.
- </li>
-</ul>
+- [Setup](#setup)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Tests](#tests)
+- [NMIG](https://github.com/AnatolyUss/nmig/blob/master/README.md)
 
-<h3>SYSTEM REQUIREMENTS</h3>
-<ul>
-<li> <b>Node.js 8 or higher</b></li>
-</ul>
+### Setup
 
-<h3>USAGE</h3>
-<p><b>1.</b> Create a new PostgreSQL database.<br />
-   <b>Sample:</b>&nbsp;<code> CREATE DATABASE my_postgresql_database;</code><br />
-   If you are planning to migrate spatial data (geometry type columns), then <b>PostGIS</b> should be installed and enabled.
-</p>
+**Requirements**
+- Git
+- NodeJS > v8
 
-<p><b>2.</b> Download Nmig package and put it on the machine running your PostgreSQL (not mandatory, but preferably).<br />
-   <b>Sample:</b>&nbsp;<code>/path/to/nmig</code></p>
+Clone git project
+```bash
+git clone https://github.com/smartexpose/mysql-postgresql-converter.git
+```
 
-<p><b>3.</b> Edit configuration file located at <code>/path/to/nmig/config/config.json</code> with correct details.<br /></p>
-<b>Notes:</b>
-   <ul>
-   <li> config.json contains brief description of each configuration parameter</li>
-   <li>Make sure, that username, you use in your PostgreSQL connection details, defined as superuser (usually "postgres")<br> More info: <a href="http://www.postgresql.org/docs/current/static/app-createuser.html">http://www.postgresql.org/docs/current/static/app-createuser.html</a></li>
-   </ul>
+Install dependencies
+```bash
+npm install
+```
 
-<p><b>4.</b> Go to Nmig directory, install dependencies, compile and run the app<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;<b>Sample:</b><br />
-    <pre>$ cd /path/to/nmig</pre><br />
-    <pre>$ npm install</pre><br />
-    <pre>$ npm run build</pre><br />
-    <pre>$ npm start</pre><br />
-</p>
+### Configuration
 
-<p><b>5.</b> If a disaster took place during migration (for what ever reason) - simply restart the process
-<code>$ npm start</code><br>&nbsp;&nbsp;&nbsp;&nbsp;NMIG will restart from the point it was stopped at.
-</p>
+You must enter the necessary credentials and details in `config/config.json`. The file contains a brief description of each required parameter.
+Make sure to configure:
+- username (PostgreSQL superuser, usually "postgres")
+- See here for information on [superuser](http://www.postgresql.org/docs/current/static/app-createuser.html)
 
-<p><b>6.</b> At the end of migration check log files, if necessary.<br />&nbsp;&nbsp;&nbsp;
-   Log files will be located under "logs_directory" folder in the root of the package.<br />&nbsp;&nbsp;&nbsp;
-   <b>Note:</b> "logs_directory" will be created during script execution.</p>
+### Usage
 
+**Create a new PostgreSQL database**
 
-<p><b>7.</b> In case of any remarks, misunderstandings or errors during migration,<br /> &nbsp;&nbsp;&nbsp;
-   please feel free to email me
-   <a href="mailto:anatolyuss@gmail.com?subject=NMIG">anatolyuss@gmail.com</a></p>
+```postgresql
+CREATE DATABASE my_postgresql_database;
+```
 
-<h3>RUNNING TESTS</h3>
-<p><b>1.</b> Create a new PostgreSQL database.<br />
-   <b>Sample:</b>&nbsp;<code> CREATE DATABASE nmig_test_db;</code><br />
-</p>
-<p><b>2.</b> Download Nmig package.<br/ ><b>Sample:</b>&nbsp;<code>/path/to/nmig</code></p>
-<p><b>3.</b> Edit configuration file located at <code>/path/to/nmig/config/test_config.json</code> with correct details.<br /></p>
-<b>Notes:</b>
-<ul>
-   <li> test_config.json contains brief description of each configuration parameter</li>
-   <li>Make sure, that username, you use in your PostgreSQL connection details, defined as superuser (usually "postgres")<br>
-        More info:
-        <a href="http://www.postgresql.org/docs/current/static/app-createuser.html">http://www.postgresql.org/docs/current/static/app-createuser.html</a>
-   </li>
-</ul>
-<p><b>4.</b> Go to nmig directory, install dependencies, compile and run tests<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;<b>Sample:</b><br />
-    <pre>$ cd /path/to/nmig</pre><br />
-    <pre>$ npm install</pre><br />
-    <pre>$ npm run build</pre><br />
-    <pre>$ npm test</pre><br />
-</p>
-<p><b>5.</b> At the end of migration check log files, if necessary.<br />&nbsp;&nbsp;&nbsp;
-   Log files will be located under "logs_directory" folder in the root of the package.<br />&nbsp;&nbsp;&nbsp;
-<b>Note:</b> "logs_directory" will be created during script execution.</p>
+Note:
+>  If you are planning to migrate spatial data (geometry type columns), then PostGIS should be installed and enabled.
 
-<h3>VERSION</h3>
-<p>Current version is 5.2.0<br />
-(major version . improvements . bug fixes)</p>
+**Build and run**
 
-<h3>LICENSE</h3>
-<p>NMIG is available under "GNU GENERAL PUBLIC LICENSE" (v. 3) <br />
-<a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt.</a></p>
+```bash
+npm run build
+npm start
+```
+
+If the migration failed, simply restart the process.
+
+```bash
+npm start
+```
+
+Once the migration is finished, check log file in `logs_directory` for possible errors
+
+### Tests
+
+**Create a new PostgreSQL Test database**
+
+```postgresql
+CREATE DATABASE nmig_test_db;
+```
+
+You can use `test_config.json` to configure the test DB environment, and adjust according to 
+your test environment.
+
+**Build and run**
+
+```bash
+npm run build
+npm start
+```

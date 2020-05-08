@@ -1,12 +1,12 @@
 {
-    "name": "nmig",
-    "version": "5.2.0",
-    "description": "Prototype for migraton of MySQL to PostgreSQL DB",
+    "name": "mysql-postgresql-converter",
+    "version": "0.1.0",
+    "description": "Prototype for migraton of MySQL to PostgreSQL DB based on the nmig library",
     "author": "Maximiliano Suster<maximiliano.suster@allmyhomes.com>",
     "license": "GPL-3.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/smartexpose/ionic-agentsection-nmig.git"
+        "url": "https://github.com/smartexpose/mysql-postgresql-converter.git"
     },
     "engines": {
         "node": ">=10.0.0"
