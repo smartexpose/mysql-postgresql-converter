@@ -1,22 +1,45 @@
 {
     "name": "nmig",
-    "version": "3.3.1",
-    "description": "The database migration app",
-    "author": "Anatoly Khaytovich<anatolyuss@gmail.com>",
+    "version": "5.2.0",
+    "description": "Prototype for migraton of MySQL to PostgreSQL DB",
+    "author": "Maximiliano Suster<maximiliano.suster@allmyhomes.com>",
     "license": "GPL-3.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/AnatolyUss/nmig.git"
     },
+    "engines": {
+        "node": ">=10.0.0"
+    },
     "dependencies": {
-        "mysql": "^2.14.1",
         "mysql-ssh": "^1.0.6",
         "mysql2": "^1.5.3",
-        "pg": "^7.3.0",
-        "pg-copy-streams": "^1.2.0",
-        "ssh2": "^0.6.0"
+        "ssh2": "^0.6.0",
+        "json2csv": "^5.0.0",
+        "mysql": "^2.18.1",
+        "pg": "^8.0.0",
+        "pg-copy-streams": "^2.2.2"
+    },
+    "devDependencies": {
+        "@types/mysql": "^2.15.9",
+        "@types/node": "^13.11.0",
+        "@types/pg": "^7.14.3",
+        "@types/tape": "^4.2.34",
+        "tape": "^4.13.2",
+        "typescript": "^3.8.3"
     },
     "scripts": {
-        "start": "node ./src/Main.js"
-    }
+        "build": "tsc",
+        "start": "node dist/src/Main.js",
+        "test": "node dist/test/Main.test.js"
+    },
+    "keywords": [
+        "database migration",
+        "copy",
+        "mysql",
+        "mariadb",
+        "postgresql",
+        "postgres",
+        "postgre"
+    ]
 }
